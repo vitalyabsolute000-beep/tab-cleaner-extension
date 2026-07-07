@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Tab Cleaner",
+  "version": "1.0",
+  "description": "Спрашивает какие вкладки оставить, а какие закрыть",
+  "permissions": ["tabs", "storage"],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}

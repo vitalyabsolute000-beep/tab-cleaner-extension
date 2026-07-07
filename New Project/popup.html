@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 400px;
+      max-height: 550px;
+      overflow-y: auto;
+      margin: 0;
+      padding: 16px;
+      font-family: 'Poppins', system-ui, sans-serif;
+      color: #fff;
+      position: relative;
+      background: linear-gradient(135deg, #1e1e3f, #2d1b4e, #1a2a4a, #241b3f);
+      background-size: 400% 400%;
+      animation: waveMove 12s ease infinite;
+    }
+
+    @keyframes waveMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body::before, body::after {
+      content: "";
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(60px);
+      z-index: 0;
+      opacity: 0.55;
+    }
+    body::before {
+      width: 260px;
+      height: 260px;
+      background: #7b5cff;
+      top: -80px;
+      left: -60px;
+      animation: float1 8s ease-in-out infinite;
+    }
+    body::after {
+      width: 220px;
+      height: 220px;
+      background: #ff5ca8;
+      bottom: -60px;
+      right: -40px;
+      animation: float2 9s ease-in-out infinite;
+    }
+    @keyframes float1 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(30px, 20px); }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-25px, -15px); }
+    }
+
+    h3 {
+      margin: 0 0 4px 0;
+      font-size: 18px;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    #counter {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .bulk-actions {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    .bulk-actions button {
+      flex: 1;
+      padding: 9px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: white;
+      backdrop-filter: blur(10px);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    #close-marked {
+      background: rgba(244, 67, 54, 0.75);
+      box-shadow: 0 4px 14px rgba(244, 67, 54, 0.45);
+    }
+    #keep-marked {
+      background: rgba(76, 175, 80, 0.75);
+      box-shadow: 0 4px 14px rgba(76, 175, 80, 0.45);
+    }
+    .bulk-actions button:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+    }
+
+    #tab-list {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .tab-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      transition: background 0.15s ease;
+    }
+    .tab-item:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .mark-checkbox {
+      accent-color: #7b5cff;
+      width: 15px;
+      height: 15px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .favicon {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      object-fit: contain;
+    }
+
+    .tab-title {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.9);
+    }
+    .tab-title.protected {
+      font-weight: 700;
+      color: #ffd27a;
+    }
+
+    button.icon-btn {
+      border: none;
+      background: none;
+      cursor: pointer;
+      padding: 3px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    button.icon-btn:hover {
+      transform: scale(1.15);
+      background: rgba(255,255,255,0.1);
+    }
+    button.icon-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .close-btn {
+      border: none;
+      border-radius: 8px;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: white;
+      background: rgba(244, 67, 54, 0.75);
+      box-shadow: 0 3px 10px rgba(244, 67, 54, 0.35);
+      flex-shrink: 0;
+      transition: transform 0.15s ease;
+    }
+    .close-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.1);
+    }
+
+    body::-webkit-scrollbar {
+      width: 6px;
+    }
+    body::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.25);
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h3>Очистка вкладок</h3>
+  <div id="counter"></div>
+  <div class="bulk-actions">
+    <button id="close-marked">Закрыть отмеченные</button>
+    <button id="keep-marked">Оставить только отмеченные</button>
+  </div>
+  <div id="tab-list"></div>
+  <script src="popup.js"></script>
+</body>
+</html>
